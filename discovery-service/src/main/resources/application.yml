@@ -2,7 +2,7 @@ spring:
   application:
     name: discovery-service
   config:
-    import: "configserver:http://localhost:8089/"
+    import: "configserver:${CONFIG_SERVER_URL:http://localhost:8089/}"
 info:
   app:
     name: "Discovery Service"
@@ -14,7 +14,9 @@ management:
     web:
       exposure:
         include: "*"
-
+  info:
+    env:
+      enabled: true
 eureka:
   instance:
     prefer-ip-address: true
