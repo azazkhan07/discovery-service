@@ -31,6 +31,8 @@ jobs:
 
       - name: Build and test
         working-directory: discovery-service
+        env:
+          SPRING_CONFIG_IMPORT: "optional:configserver:"
         run: chmod +x mvnw && ./mvnw --batch-mode clean verify
 
       - name: Set up Docker Buildx
