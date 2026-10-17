@@ -1,3 +1,4 @@
+
 name: Discovery Service CI/CD
 
 on:
@@ -26,8 +27,10 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
+          cache-dependency-path: discovery-service/pom.xml
 
       - name: Build and test
+        working-directory: discovery-service
         run: chmod +x mvnw && ./mvnw --batch-mode clean verify
 
       - name: Set up Docker Buildx
@@ -46,7 +49,8 @@ jobs:
         if: github.event_name == 'push'
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./discovery-service
+          file: ./discovery-service/Dockerfile
           push: true
           tags: |
             ghcr.io/azazkhan07/discovery-service:latest
